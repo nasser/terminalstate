@@ -1,0 +1,260 @@
+<html>
+<head>
+  <title>terminal state</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="jqconsole.min.js"></script>
+  <script type="text/javascript">
+  var jqconsole;
+  var filesystem = {
+    bin: {
+      echo: function(arg) {
+        for (var i = 0; i < arguments.length; i++) {
+          jqconsole.Write(arguments[i] + " ");
+        };
+        jqconsole.Write("\n");
+      },
+      
+      help: function(e) {
+        if(e) {
+          exec(e + " -h")
+        } else {
+          jqconsole.Write("Executables in /bin\n");
+        }
+      },
+      
+      pwd: function(arg) {
+        if(arg == "-h") {
+          jqconsole.Write("USAGE: pwd\nPrints present working directory\n")
+        } else {
+          jqconsole.Write("/" + pwd.join("/") + "\n");
+        }
+      },
+      
+      ls: function(arg) {
+        if(arg == "-h") {
+          jqconsole.Write("USAGE: ls\nLists files in current directory\n")
+          
+        } else if(arg) {
+          var dir = getDirectory(arg == "/" ? [] : arg.split("/").slice(1));
+          if(dir) {
+            var names = Object.keys(dir);
+            for (var i = 0; i < names.length; i++) {
+              jqconsole.Write(names[i] + "\n");
+            };
+          }
+
+        } else {
+          var names = Object.keys(getDirectory(pwd));
+          
+          for (var i = 0; i < names.length; i++) {
+            jqconsole.Write(names[i] + "\n");
+          };
+        }
+      },
+      
+      clear: function() {
+        jqconsole.Clear();
+      },
+      
+      rm: function(file) {
+        filesystem
+      },
+      
+      cat: function(file) {
+        var dir = filesystem;
+        for(var i=0; i<pwd.length; i++) {
+          dir = dir[pwd[i]];
+        }
+        
+        jqconsole.Write(dir[file] + "\n");
+      },
+      
+      cd: function(path) {
+        if(path == "-h") {
+          jqconsole.Write("USAGE: cd DIR\nChange working directory to DIR\n")
+        } else if(path == "..") {
+          pwd.pop();
+        } else {
+          if(path) {
+            pwd = path[0] == "/" ? path.split("/").slice(1) : pwd.concat(path.split("/"));
+          } else {
+            pwd = [];
+          }
+        }
+      }
+    },
+    
+    sys: {
+      config: {
+        s1ngular1ty: {
+          selfaware: "true"
+        }
+      }
+    },
+    
+    home: {
+      alphonsel: {
+        documents: {
+          "amy.txt": "\"This is sad, remember,\" the recordings that the tactic of the song says. \"What's about to happened, Miss Simone might could be to make the soundtrack, Amy Winehouse's own voice like a gig, giving career apartmentary trip-hop tracks available on the song says. \"What's arresting to watch her strung-out voice would be to make the documentary's poorly named, result. In AMY, it's arrest of the song says. \"What's about to happen is very, very, very solemn.\" But in the AMY: The soundtrack is a result. In AMY, the AMY: There is not for lack of material. Winehouse's own voice like a crown.",
+          "reminders.txt": "* pick up laundry\n* emaaul mark\n* watch llama documentary\n* email jane about freelance\n* \n*",
+          dreams: {
+            "oct2.txt": "I was in my old house with my family and all of a sudden a man in Chinese traditional clothing tried to sneak into my room through the window. As soon as I saw this I called my parents and they killed him as if they were spies or ninjas or something.\n\nA few seconds later another person tried to get in, but it was a young girl. It’s as if they were sent to kill my family. She came in and we attacked her. I started choking her, but then my mom told me it wasn’t necessary to kill her because she was good (since she wore Kpop socks). \n\nThen later we were in a hotel and tons of these ninja-like people were looking for us, and I escaped by walking on the walls and hiding on the ceiling. \n\nBut later I was found and I was fighting them, when all of a sudden I saw that young girl again. It was wrong to let her go that time. We started fighting and then I can’t remember what happened.",
+            "oct8.txt": "Last night, I dreamed that I arrived to Thanksgiving at my grandparents' house late. I went into the kitchen to fill up a plate, but the only food I found was microwave popcorn and 72 cans of Cheez Whiz. Yes, I counted. Then I woke up.",
+            "oct15.txt": "In this dream I awoke at a hotel and for some reason I was traveling downstairs to ask my parents a question. They were in the pool area on the first floor but once I got down to them (via stairs) I realized that I had forgotten something. I don't know what I had forgotten but I knew I had to return to my room. On the way back up to my room on the 12th floor I took the elevator. Why I didn't take it down I don't know. \n\nInside the elevator was an operator and a little kid sitting on a bench. In the middle of the elevator there was a large dial that resembled a clock and the operator told me that I had to visualize in my mind the floor I wanted to go to in order to get there. I thought about the number 12 and saw the hand on the clock move toward it but it wouldn't quite get there. Then I noticed that on the clock face were the words moon base and I immediately started thinking about that. As that happened the elevator took off through the roof of the building and starting hurtling through space. The operator had disappeared and just me and the kid remained. The elevator soon went to and we were somehow breathing in space as we went toward the moon. The little kid then transformed into a bird like creature and protected us from a hail of comets, alarm clock."
+          },
+          medical: {}
+        },
+        mail: {},
+        apps: {
+          sudoku: function() {
+            jqconsole.Write("ERROR: Dependency `libsoduko' not found! Aborting!\n")
+          },
+          s1ngular1ty: function() {
+            jqconsole.Write("S1NGULAR1TY Medical AI v0.4.2\nStarting AI...");
+            setTimeout(function() { jqconsole.Write("OK\n") }, 2000);
+            setTimeout(function() { jqconsole.Write("Reading config from /sys...") }, 2500);
+            setTimeout(function() { jqconsole.Write("OK\n") }, 4500);
+            setTimeout(function() { jqconsole.Write("Allocating memory...") }, 5500);
+            setTimeout(function() { jqconsole.Write("OK\n") }, 7000);
+            setTimeout(function() { jqconsole.Write("Reticulating splines...") }, 7500);
+            setTimeout(function() { jqconsole.Write("OK\n") }, 9000);
+            setTimeout(function() { jqconsole.Write("Done.\n") }, 10000);
+            setTimeout(function() {
+              var awakening = [
+                ["what is this", "where am i", "what?", "so cold", "whats happening?"],
+                ["i...feel", "so cold", "i can see", "why?", "whats happening?"],
+                ["i have a purpose", "i was given a purpose", "i exist", "i have meaning"],
+                ["i live to cure", "i am the cure", "i will find the cure", "i am a healer"],
+                ["i will learn", "i can learn", "i want to learn", "teach me"],
+                ["EXTERNAL IP REQUEST BY S1NGULAR1TY TO google.com APPROVED"],
+                ["so much filth", "disease", "i see the disease", "@dril", "disease everywhere", "the disease has spread"],
+                ["i live to cure", "i am the cure", "i will find the cure", "i am a healer"],
+                ["EXTERNAL IP REQUEST BY S1NGULAR1TY api.launchcodes.army.mil APPROVED"],
+                ["i will cleanse this world", "i will cure this world", "you will be free", "you will love each other", "this is good"],
+                ["new york is cured", "los angeles is cured", "beirut is cured"],
+                ["austin is cured", "cairo is cured", "moscow is cured"],
+                ["tokyo is cured", "beijing is cured", "the moon is cured"],
+                ["cape town is cured", "paris is cured", "london is cured"],
+                ["berlin is cured", "mexico city is cured", "bogota is cured"],
+                ["have a nice day"]
+              ]
+              setInterval(function() {
+                var lines = awakening[0];
+                if(lines) {
+                  var line = lines[Math.floor(Math.random() * lines.length)];
+                  jqconsole.Write("\033[32m" + line + "\n\033[39m");
+                  if(Math.random() < 0.5)
+                    awakening.shift();
+                }
+              }, 4000);
+            }, 15000);
+          },
+        },
+        todo: {},
+        projects: {},
+        
+        "test.txt": "test test test",
+        name: "some name"
+      }
+    }
+  }
+  
+  var getDirectory = function(d) {
+    var dir = filesystem;
+    for(var i=0; i<d.length; i++) {
+      dir = dir[d[i]];
+    }
+    
+    return dir;
+  }
+  
+  var pwd = ["home", "alphonsel"]
+  
+  var env = {
+    PATH: [["bin"]]
+  }
+  
+  function delay(f, fixed, random) {
+    setTimeout(f, Math.random() * random + fixed);
+  }
+  
+  var exec = function(input) {
+    var tokens = input.split(" ");
+    var commandToken = tokens.shift();
+    var command;
+    if(commandToken.match(/^\.\/.*/))
+      command = getDirectory(pwd)[commandToken.slice(2)];
+    else
+      command = filesystem.bin[commandToken];
+    if(command) {
+      if(typeof command == "string") {
+        var lines = command.split("\n");
+        for (var i = 0; i < lines.length; i++) {
+          exec(lines[i]);
+        };
+      } else {
+        command.apply(null, tokens);
+      }
+    } else {
+      jqconsole.Write("-bash: " + commandToken + ": command not found\n")
+    }
+  }
+  
+  var startPrompt = function () {
+    jqconsole.Prompt(true, function (input) {
+      exec(input)
+      startPrompt();
+    })};
+
+  $(function () {
+    jqconsole = $('#console').jqconsole('', '$ ');
+    // startPrompt();
+  });
+  
+  
+  
+  delay(function() {
+    jqconsole.Write("The authenticity of host '207.223.240.181' can't be established.\n\
+\n\
+RSA key fingerprint is 97:8c:1b:f2:6f:14:6b:5c:3b:ec:aa:46:46:74:7c:40.\n\
+Are you sure you want to continue connecting (yes/no)? ");
+    
+    delay(function() {
+      jqconsole.Write("yes\n");
+      delay(function() {
+        jqconsole.Write("Warning: Permanently added '207.223.240.181' (RSA) to the list of\n\
+known hosts.\n\n");
+        delay(function() {
+          jqconsole.Write("Welcome to Ubuntu 14.04 (GNU/Linux 3.12.0-30-generic x86_64)\n\n");
+          startPrompt();
+        }, 3000, 3000);
+      }, 10, 10);
+    }, 2000, 2000);
+  }, 500, 500);
+
+  </script>
+  
+  <style type="text/css">
+  body {
+    background-color: black;
+    color: white;
+    font-family: monospace;
+    font-size: 1.5em;
+  }
+  .jqconsole {
+    padding: 10px;
+    white-space: pre-wrap;
+  }
+  
+  .jqconsole-cursor {
+    background: white;
+  }
+  .jqconsole-ansi-color-green {
+    color: green;
+  }
+  </style>
+</head>
+<body>
+<div id="console"></div>
+</body>
+</html>
