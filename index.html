@@ -18,7 +18,7 @@
         if(e) {
           exec(e + " -h")
         } else {
-          jqconsole.Write("Executables in /bin\n");
+          jqconsole.Write("Executables in /bin\nPrefix local executables with ./\n");
         }
       },
       
@@ -61,12 +61,21 @@
       },
       
       cat: function(file) {
-        var dir = filesystem;
-        for(var i=0; i<pwd.length; i++) {
-          dir = dir[pwd[i]];
+        if(file == "-h") {
+          jqconsole.Write("USAGE: cat FILE\nDumps contents of FILE to stdout\n")
+          
+        } else {
+          var dir = filesystem;
+          for(var i=0; i<pwd.length; i++) {
+            dir = dir[pwd[i]];
+          }
+          
+          if(typeof dir[file] == "function") {
+            jqconsole.Write("Binary executable\n");
+          } else {
+            jqconsole.Write(dir[file] + "\n");
+          }
         }
-        
-        jqconsole.Write(dir[file] + "\n");
       },
       
       cd: function(path) {
@@ -127,10 +136,9 @@ Email:  \n\
 Sens Chart: No\n\
 \n\
 Problems\n\
-\n\
 LUNG CANCER (ICD-110.)\n\
-Prognosis\n\
 \n\
+Prognosis\n\
 TERMINAL\n\
 \n\
 Medications\n\
